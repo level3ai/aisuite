@@ -143,9 +143,5 @@ class AzureProvider(Provider):
                 result = response.read()
                 resp_json = json.loads(result)
                 return self.transformer.convert_response(resp_json)
-
-        except urllib.error.HTTPError as error:
-            error_message = f"The request failed with status code: {error.code}\n"
-            error_message += f"Headers: {error.info()}\n"
-            error_message += error.read().decode("utf-8", "ignore")
-            raise Exception(error_message)
+        except Exception as e:
+            raise e
