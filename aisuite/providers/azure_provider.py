@@ -75,6 +75,17 @@ class AzureMessageConverter:
                 tool_calls.append(new_tool_call)
             completion_response.choices[0].message.tool_calls = tool_calls
 
+        # Inflate the statistic usage info
+        if resp_json["usage"]:
+            completion_response.prompt_tokens = resp_json["usage"]["prompt_tokens"]
+            completion_response.completion_tokens = resp_json["usage"]["completion_tokens"]
+            completion_response.total_tokens = resp_json["usage"]["total_tokens"]
+
+        # Inflate the prompt filter results
+        prompt_filter_results = resp_json["prompt_filter_results"]
+        if prompt_filter_results and len(prompt_filter_results) > 0:
+            completion_response.content_filter_results = prompt_filter_results[0].get("content_filter_results")
+
         return completion_response
 
 
