@@ -85,11 +85,11 @@ class AzureMessageConverter:
 class AzureProvider(Provider):
     def __init__(self, **config):
         self.base_url = config.get("base_url") or os.getenv("AZURE_BASE_URL")
-        self.api_key = config.get("api_key") or os.getenv("AZURE_API_KEY")
         self.api_version = config.get("api_version") or os.getenv("AZURE_API_VERSION")
-        self.entra_id_token = config.get("entra_id_token") or os.getenv("AZURE_ENTRY_ID_TOKEN")
-        if not self.api_key and not self.entra_id_token:
-            raise ValueError("For Azure, api_key or entra_id_token is required.")
+        self.api_key = config.get("api_key") or os.getenv("AZURE_API_KEY")
+        self.authentication_token = config.get("authentication_token") or os.getenv("AZURE_AUTHENTICATION_TOKEN")
+        if not self.api_key and not self.authentication_token:
+            raise ValueError("For Azure, api_key or authentication_token is required.")
         if not self.base_url:
             raise ValueError(
                 "For Azure, base_url is required. Check your deployment page for a URL like this - https://<model-deployment-name>.<region>.models.ai.azure.com"
@@ -97,8 +97,8 @@ class AzureProvider(Provider):
         self.headers = {"Content-Type": "application/json"}
         if self.api_key:
             self.headers["api-key"] = self.api_key
-        if self.entra_id_token:
-            self.headers["Authorization"] = f"Bearer {self.entra_id_token}"
+        if self.authentication_token:
+            self.headers["Authorization"] = f"Bearer {self.authentication_token}"
 
         self.transformer = AzureMessageConverter()
     def chat_completions_create(self, model, messages, **kwargs):
