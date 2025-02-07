@@ -87,8 +87,8 @@ class AzureProvider(Provider):
         self.base_url = config.get("base_url") or os.getenv("AZURE_BASE_URL")
         self.api_version = config.get("api_version") or os.getenv("AZURE_API_VERSION")
         self.api_key = config.get("api_key") or os.getenv("AZURE_API_KEY")
-        self.authentication_token = config.get("authentication_token") or os.getenv("AZURE_AUTHENTICATION_TOKEN")
-        if not self.api_key and not self.authentication_token:
+        self.authorization_token = config.get("authorization_token") or os.getenv("AZURE_AUTHORIZATION_TOKEN")
+        if not self.api_key and not self.authorization_token:
             raise ValueError("For Azure, api_key or authentication_token is required.")
         if not self.base_url:
             raise ValueError(
@@ -97,8 +97,8 @@ class AzureProvider(Provider):
         self.headers = {"Content-Type": "application/json"}
         if self.api_key:
             self.headers["api-key"] = self.api_key
-        if self.authentication_token:
-            self.headers["Authorization"] = f"Bearer {self.authentication_token}"
+        if self.authorization_token:
+            self.headers["Authorization"] = f"Bearer {self.authorization_token}"
 
         self.transformer = AzureMessageConverter()
     def chat_completions_create(self, model, messages, **kwargs):
