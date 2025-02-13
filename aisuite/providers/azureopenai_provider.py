@@ -5,7 +5,7 @@ from openai import AzureOpenAI
 from aisuite.provider import Provider
 
 
-class AzureOpenaiProvider(Provider):
+class AzureopenaiProvider(Provider):
     def __init__(self, **config):
         self.base_url = config.get("base_url") or os.getenv("AZURE_OPENAI_BASE_URL")
         self.api_version = config.get("api_version") or os.getenv("AZURE_OPENAI_API_VERSION")
