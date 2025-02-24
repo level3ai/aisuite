@@ -18,6 +18,9 @@ class WatsonxProvider(Provider):
                 "Please refer to the setup guide: /guides/watsonx.md."
             )
 
+    async def async_chat_completions_create(self, model, messages, **kwargs):
+        raise NotImplementedError("Async chat-completions not implemented.")
+
     def chat_completions_create(self, model, messages, **kwargs):
         model = ModelInference(
             model_id=model,

@@ -198,10 +198,14 @@ class AnthropicMessageConverter:
 
 
 class AnthropicProvider(Provider):
+
     def __init__(self, **config):
         """Initialize the Anthropic provider with the given configuration."""
         self.client = anthropic.Anthropic(**config)
         self.converter = AnthropicMessageConverter()
+
+    async def async_chat_completions_create(self, model, messages, **kwargs):
+        raise NotImplementedError("Async chat-completions not implemented.")
 
     def chat_completions_create(self, model, messages, **kwargs):
         """Create a chat completion using the Anthropic API."""

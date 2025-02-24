@@ -1,6 +1,7 @@
 import os
+
 from aisuite.provider import Provider, LLMError
-from openai import OpenAI
+from openai import OpenAI, AsyncOpenAI
 from aisuite.providers.message_converter import OpenAICompliantMessageConverter
 
 
@@ -33,7 +34,19 @@ class SambanovaProvider(Provider):
         config["base_url"] = "https://api.sambanova.ai/v1/"
         # Pass the entire config to the OpenAI client constructor
         self.client = OpenAI(**config)
+        self.async_client = AsyncOpenAI(**config)
         self.transformer = SambanovaMessageConverter()
+
+    async def async_chat_completions_create(self, model, messages, **kwargs):
+        # Any exception raised by OpenAI will be returned to the caller.
+        # Maybe we should catch them and raise a custom LLMError.
+        response = self.async_client.chat.completions.create(
+            model=model,
+            messages=messages,
+            **kwargs  # Pass any additional arguments to the OpenAI API
+        )
+
+        return response
 
     def chat_completions_create(self, model, messages, **kwargs):
         """

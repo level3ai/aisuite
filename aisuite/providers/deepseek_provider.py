@@ -23,6 +23,14 @@ class DeepseekProvider(Provider):
 
         # Pass the entire config to the OpenAI client constructor
         self.client = openai.OpenAI(**config)
+        self.async_client = openai.AsyncOpenAI(**config)
+
+    async def async_chat_completions_create(self, model, messages, **kwargs):
+        return await self.async_client.chat.completions.create(
+            model=model,
+            messages=messages,
+            **kwargs  # Pass any additional arguments to the OpenAI API
+        )
 
     def chat_completions_create(self, model, messages, **kwargs):
         # Any exception raised by OpenAI will be returned to the caller.

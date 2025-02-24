@@ -44,6 +44,9 @@ class GroqProvider(Provider):
         self.client = groq.Groq(**config)
         self.transformer = GroqMessageConverter()
 
+    async def async_chat_completions_create(self, model, messages, **kwargs):
+        raise NotImplementedError("Async chat-completions not implemented.")
+
     def chat_completions_create(self, model, messages, **kwargs):
         """
         Makes a request to the Groq chat completions endpoint using the official client.

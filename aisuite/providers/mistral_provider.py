@@ -56,6 +56,9 @@ class MistralProvider(Provider):
         self.client = Mistral(**config)
         self.transformer = MistralMessageConverter()
 
+    async def async_chat_completions_create(self, model, messages, **kwargs):
+        raise NotImplementedError("Async chat-completions not implemented.")
+
     def chat_completions_create(self, model, messages, **kwargs):
         """
         Makes a request to Mistral using the official client.

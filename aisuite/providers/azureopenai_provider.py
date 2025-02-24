@@ -1,6 +1,6 @@
 import os
 
-from openai import AzureOpenAI
+from openai import AzureOpenAI, AsyncAzureOpenAI
 
 from aisuite.provider import Provider
 
@@ -15,7 +15,17 @@ class AzureopenaiProvider(Provider):
             raise ValueError("For Azure OpenAI, api_key, azure_endpoint, api_version are required.")
 
         self.client = AzureOpenAI(api_key=self.api_key, api_version=self.api_version, azure_endpoint=self.base_url)
+        self.async_client = AsyncAzureOpenAI(api_key=self.api_key, api_version=self.api_version, azure_endpoint=self.base_url)
 
+
+    async def async_chat_completions_create(self, deployment_name, messages, **kwargs):
+        response = await self.async_client.chat.completions.create(
+            model=deployment_name,
+            messages=messages,
+            **kwargs  # Pass any additional arguments to the OpenAI API
+        )
+
+        return response
 
     def chat_completions_create(self, deployment_name, messages, **kwargs):
         # Any exception raised by OpenAI will be returned to the caller.

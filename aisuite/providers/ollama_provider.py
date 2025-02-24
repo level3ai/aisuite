@@ -26,6 +26,9 @@ class OllamaProvider(Provider):
         # Optionally set a custom timeout (default to 30s)
         self.timeout = config.get("timeout", 30)
 
+    async def async_chat_completions_create(self, model, messages, **kwargs):
+        raise NotImplementedError("Async chat-completions not implemented.")
+
     def chat_completions_create(self, model, messages, **kwargs):
         """
         Makes a request to the chat completions endpoint using httpx.

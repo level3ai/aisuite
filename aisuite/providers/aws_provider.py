@@ -241,6 +241,9 @@ class AwsProvider(Provider):
 
         return request_config
 
+    async def async_chat_completions_create(self, model, messages, **kwargs):
+        raise NotImplementedError("Async chat-completions not implemented.")
+
     def chat_completions_create(
         self, model: str, messages: List[Dict[str, Any]], **kwargs
     ) -> ChatCompletionResponse:

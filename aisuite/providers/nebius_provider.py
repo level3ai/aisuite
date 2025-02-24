@@ -1,6 +1,6 @@
 import os
 from aisuite.provider import Provider
-from openai import Client
+from openai import Client, AsyncClient
 
 
 BASE_URL = "https://api.studio.nebius.ai/v1"
@@ -23,6 +23,14 @@ class NebiusProvider(Provider):
         config["base_url"] = BASE_URL
         # Pass the entire config to the OpenAI client constructor
         self.client = Client(**config)
+        self.async_client = AsyncClient(**config)
+
+    async def async_chat_completions_create(self, model, messages, **kwargs):
+        return self.async_client.chat.completions.create(
+            model=model,
+            messages=messages,
+            **kwargs  # Pass any additional arguments to the Nebius API
+        )
 
     def chat_completions_create(self, model, messages, **kwargs):
         return self.client.chat.completions.create(

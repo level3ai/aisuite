@@ -34,6 +34,9 @@ class HuggingfaceProvider(Provider):
             token=self.token, model=self.model, timeout=self.timeout
         )
 
+    async def async_chat_completions_create(self, model, messages, **kwargs):
+        raise NotImplementedError("Async chat-completions not implemented.")
+
     def chat_completions_create(self, model, messages, **kwargs):
         """
         Makes a request to the Inference API endpoint using InferenceClient.

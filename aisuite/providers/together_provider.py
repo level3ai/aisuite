@@ -34,6 +34,9 @@ class TogetherProvider(Provider):
         self.timeout = config.get("timeout", 30)
         self.transformer = TogetherMessageConverter()
 
+    async def async_chat_completions_create(self, model, messages, **kwargs):
+        raise NotImplementedError("Async chat-completions not implemented.")
+
     def chat_completions_create(self, model, messages, **kwargs):
         """
         Makes a request to the Together AI chat completions endpoint using httpx.
