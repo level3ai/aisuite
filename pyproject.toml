@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aisuite"
-version = "0.1.15"
+version = "0.1.16"
 description = "Uniform access layer for LLMs"
 authors = ["Andrew Ng, Rohit P"]
 readme = "README.md"
