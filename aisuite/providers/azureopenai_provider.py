@@ -11,9 +11,7 @@ class AzureopenaiProvider(Provider):
         self.api_version = config.get("api_version") or os.getenv("AZURE_OPENAI_API_VERSION")
         self.api_key = config.get("api_key") or os.getenv("AZURE_OPENAI_API_KEY")
 
-        self.max_retries = config.get("max_retries") or os.getenv("AZURE_OPENAI_MAX_RETRIES")
-        if not self.max_retries:
-            self.max_retries = DEFAULT_MAX_RETRIES
+        self.max_retries = config.get("max_retries", DEFAULT_MAX_RETRIES)
 
         if not self.api_key or not self.base_url or not self.api_version:
             raise ValueError("For Azure OpenAI, api_key, azure_endpoint, api_version are required.")
@@ -42,3 +40,4 @@ class AzureopenaiProvider(Provider):
         )
 
         return response
+
