@@ -13,7 +13,7 @@ cohere = { version = "^5.12.0", optional = true }
 vertexai = { version = "^1.63.0", optional = true }
 groq = { version = "^0.9.0", optional = true }
 mistralai = { version = "^1.0.3", optional = true }
-openai = { version = "^1.35.8", optional = true }
+openai = { version = "^1.109.1", optional = true }
 ibm-watsonx-ai = { version = "^1.1.16", optional = true }
 docstring-parser = { version = "^0.14.0", optional = true }
 
@@ -37,7 +37,7 @@ all = ["anthropic", "aws", "google", "groq", "mistral", "openai", "cohere", "wat
 pre-commit = "^3.7.1"
 black = "^24.4.2"
 python-dotenv = "^1.0.1"
-openai = "^1.35.8"
+openai = "^1.109.1"
 groq = "^0.9.0"
 anthropic = "^0.30.1"
 notebook = "^7.2.1"
