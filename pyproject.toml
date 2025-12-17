@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aisuite"
-version = "0.1.17"
+version = "0.1.20"
 description = "Uniform access layer for LLMs"
 authors = ["Andrew Ng, Rohit P"]
 readme = "README.md"
@@ -13,7 +13,7 @@ cohere = { version = "^5.12.0", optional = true }
 vertexai = { version = "^1.63.0", optional = true }
 groq = { version = "^0.9.0", optional = true }
 mistralai = { version = "^1.0.3", optional = true }
-openai = { version = "^1.109.1", optional = true }
+openai = { version = "^2.13.0", optional = true }
 ibm-watsonx-ai = { version = "^1.1.16", optional = true }
 docstring-parser = { version = "^0.14.0", optional = true }
 
